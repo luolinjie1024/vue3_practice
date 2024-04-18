@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>循环渲染</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+  <div id="Application">
+    <h1>v-for循环渲染</h1>
+    <div v-for="item in list">
+      {{item}}
+    </div>
+    <li v-for="(item,index) in objectList">
+
+      {{index}}.{{item.name}}:{{item.phone}}
+    </li>
+
+<!--    v-for指令的高级用法-->
+<!--    当调用如下方法 对数组进行动态操作时，v-for视图也会对应更新：-->
+<!--    push() // 向列表尾部追加一个元素-->
+<!--    pop() // 删除列表尾部的一个元素-->
+<!--    shift() // 向列表头部插入一个元素-->
+<!--    unshift() // 删除列表头部的一个元素-->
+<!--    splice() // 对列表进行分割操作-->
+<!--    sort() // 对列表进行排序操作-->
+<!--    reverse() // 对列表进行逆序-->
+    <h1> v-for指令的高级用法: 对数组进行动态操作时，v-for视图也会对应更新：</h1>
+    <button @click="onclick" >点击 反转列表</button>
+
+    <h1>渲染v-for之前，对数据使用自定义方法，增加处理逻辑，比如过滤掉不符合展示的数据</h1>
+    <li v-for="(item,index) in handle(objectList)">
+      {{index}}.{{item.name}}:{{item.phone}}
+    </li>
+  </div>
+
+  <script>
+
+    const App = {
+      // data 是一个方法
+      data () {
+        return{
+          list : [1,2,3,4,5],
+          objectList:[
+            {
+              name:"tom",
+              phone:"134564"
+            },
+            {
+              name:"tom2",
+              phone:"134564"
+            },
+            {
+              name:"tom3",
+              phone:"134564"
+            },
+          ]
+        }
+      },
+      // 这里使用methods，定义绑定事件
+      methods:{
+        onclick(){
+          this.list.reverse()
+          this.objectList.reverse()
+        },
+        // 定义handle方法 对数据进行处理后再返回 （数据大多数情况下，没法达到直接渲染到页面的要求）
+        handle(d){
+          // 注意 !== 是比较严格的比较运算   ，而 != 是非严格运算，会转换数据类型
+          return d.filter(obj => obj.name !=='tom3')
+        }
+      }
+
+    }
+    // 注意 # 符号是为了 筛选出id
+    Vue.createApp(App).mount('#Application')
+  </script>
+</body>
+</html>

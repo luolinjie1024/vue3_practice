@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>条件渲染</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <script>
+
+    const App = {
+      // data 是一个方法
+      data () {
+        return{
+          show:true,
+          mark: 50
+        }
+      }
+    }
+    // 注意 # 符号是为了 筛选出id
+    Vue.createApp(App).mount('#Application')
+  </script>
+
+
+  <div id="Application">
+    <h1 v-if="show">标题</h1>
+    <p v-else>如果不显示标题就显示段落</p>
+
+    <!--    v-if 中使用表达式 进行选择-->
+    <h1 v-if="mark == 100">满分</h1>
+    <h1 v-else-if="mark > 60">及格</h1>
+    <h1 v-else>不及格</h1>
+
+
+    <!--  注意：v-if指令的使用必须添加到一个HTML元素上， 如果我们需要使用
+    条件同时控制多个标签元素的渲染， 有两种方式可以实现  -->
+    <!--不推荐 ，因为会多加载div标签   -->
+    <div v-if="show">
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </div>
+    <!--  推荐使用template，因为不会渲染template标签  -->
+    <template v-if="show">
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </template>
+
+
+
+    <!--  v-if 是真正的意义上的条件渲染，采用的是懒加载的方式   -->
+    <h1 v-if="show">v-if标题在这里</h1>
+    <!--  v-show  是先加载出来，然后控制display样式  -->
+    <h1 v-show="show">v-show标题在这里</h1>
+
+<!--    渲染原理不同， 通常v-if指令有更高的切换性能消耗， 而v-show指令有更高的初始渲染性能消耗。
+在实际开发中，如何选择？
+如果组件的渲染条件会比较频繁地切换， 则建议使用v-show指令来控制，
+如果组件的渲染条件在初始指定后就很少变化， 则建议使用vif指令控制-->
+  </div>
+</body>
+</html>
