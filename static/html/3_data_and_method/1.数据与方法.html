@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>1.数据与方法</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<div id="Application">
+  <button @click="addProperty">点击尝试添加属性</button>
+  <div v-bind>haha,通过方法动态添加的属性，不会将age变量渲染到前端页面，后台倒是可以看到{{ age }}</div>
+  <div v-bind>{{ count }}</div>
+</div>
+<body>
+<script>
+  const App = {
+    data () {
+      return {
+        count: 0
+      }
+    },
+    methods: {
+      addProperty () {
+        this.age = 10
+        // 动态修改属性age
+        console.log(this.age)
+      },
+      add () {
+        this.count++
+      }
+    }
+  }
+
+  let instance = Vue.createApp(App).mount('#Application')
+
+  instance.count = 90
+
+  //   获取组件中的data数据
+  console.log(instance.count)
+  //   获取组件中的data数据
+  console.log(instance.$data.count)
+
+  /**
+   * 需要注意， 在实际开发中， 我们也可以动态地向组件实例中添加属
+   * 性， 但是这种方式添加的属性不能被响应式系统跟踪， 其变化无法同步
+   * 到页面元素。
+   */
+</script>
+</body>
+</html>
