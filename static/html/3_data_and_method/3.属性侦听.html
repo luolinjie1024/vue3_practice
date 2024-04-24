@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.属性侦听.html</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div  id="Application">
+  <input v-model="searchText"/>
+</div>
+<script>
+  const App = {
+    // data 是一个方法
+    data () {
+      return {
+        searchText:""
+      }
+    },
+    // computed:定义计算属性，维护中间变量，注意有return
+    computed: {
+
+    },
+    methods: {
+      onXXX () {
+
+      }
+    },
+    watch:{
+      searchText(newValue,oldValue){
+        console.log(`oldValue:${oldValue},oldValue.length:${oldValue.length}`)
+        console.log(`newValue:${newValue},newValue.length:${newValue.length}`)
+        if (newValue.length>10){
+          alert("文本太长了，请重新输入")
+        }
+      }
+    }
+  }
+  // 注意 # 符号是为了 筛选出id
+  Vue.createApp(App).mount('#Application')
+</script>
+</body>
+</html>

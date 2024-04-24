@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.限流.html</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="Application">
+  <button @click="onClick">点击</button>
+</div>
+<script>
+  const App = {
+    // data 是一个方法
+    data () {
+      return {
+        isClickable: false//默认不限流
+      }
+    },
+    // computed:定义计算属性，维护中间变量，注意有return
+    computed: {},
+    methods: {
+      onClick () {
+        if (!this.isClickable) {
+          console.log(Date())
+        } else {
+          return
+        }
+        this.isClickable = true
+        setTimeout(() =>
+            this.isClickable = false
+          , 2000)
+      }
+    },
+    watch: {
+      // searchText(newValue,oldValue){
+      //   console.log(`oldValue:${oldValue},oldValue.length:${oldValue.length}`)
+      //   console.log(`newValue:${newValue},newValue.length:${newValue.length}`)
+      //   if (newValue.length>10){
+      //     alert("文本太长了，请重新输入")
+      //   }
+      // }
+    }
+  }
+  // 注意 # 符号是为了 筛选出id
+  Vue.createApp(App).mount('#Application')
+</script>
+</body>
+</html>

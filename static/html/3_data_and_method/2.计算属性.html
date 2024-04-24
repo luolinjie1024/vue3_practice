@@ -9,9 +9,9 @@
 </head>
 <body>
 <div id="Application">
-  <div>{{type}}</div>
+  <div>{{ type }}</div>
   <button @click="onClick">Add</button>
-  <div>{{count}}</div>
+  <div>{{ count }}</div>
 </div>
 <script>
   const App = {
@@ -22,9 +22,21 @@
       }
     },
     // computed:定义计算属性，维护中间变量，注意有return
-    computed:{
-      type(){
-        return this.count > 10 ? "大":"小"
+    computed: {
+      // type(){
+      //   return this.count > 10 ? "大":"小"
+      // }
+      type: {
+        get () {
+          return this.count > 10 ? '大' : '小'
+        },
+        set (newValue) {
+          if (newValue == '大'){
+            this.count = 11
+          }else{
+            this.count =0
+          }
+        }
       }
     },
     // 属性
@@ -36,7 +48,15 @@
   }
   // 注意 # 符号是为了 筛选出id
   const instance = Vue.createApp(App).mount('#Application')
-  console.log("控制台打印：",instance.type)
+  console.log('控制台打印：', instance.type)
+  // 初始值为0
+  console.log(instance.count)
+  // 初始状态为“小”
+  console.log(instance.type)
+  // 对计算属性进行修改
+  instance.type = "大"
+  // 打印结果为11
+  console.log(instance.count)
 </script>
 </body>
 </html>
