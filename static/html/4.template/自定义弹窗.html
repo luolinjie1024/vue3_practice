@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义弹窗.html</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<style>
+
+  /* 模态框样式 */
+  .modal {
+    display: none; /* 默认不显示 */
+    position: fixed; /* 固定定位 */
+    z-index: 1; /* 确保模态框在最上层 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 宽度100% */
+    height: 100%; /* 高度100% */
+    overflow: auto; /* 允许滚动 */
+    background-color: rgba(0,0,0,0.4); /* 黑色背景，透明度0.4 */
+  }
+
+  /* 模态框内容样式 */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 从顶部和自动居中 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* 宽度80% */
+    max-width: 500px; /* 最大宽度 */
+  }
+</style>
+</head>
+<body>
+
+<!-- 模态框 -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <p>这是一个会自动消失的弹窗。</p>
+  </div>
+</div>
+<script>
+  // 获取模态框元素
+  var modal = document.getElementById("myModal");
+
+  // 显示模态框的函数
+  function show_modal() {
+    modal.style.display = "block";
+    setTimeout(function() {
+      modal.style.display = "none";
+    }, 1000); // 在1000毫秒（1秒）后隐藏模态框
+  }
+
+  // 当文档加载完成后，显示模态框
+  document.addEventListener('DOMContentLoaded', function() {
+    show_modal();
+  });
+</script>
+</body>
+</html>
